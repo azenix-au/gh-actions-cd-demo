@@ -43,7 +43,7 @@ jobs:
     - name: Login to Container Registry
       uses: docker/login-action@v1 
       with:
-        registry: ${{ secrets.AZURE_REGISTRY_NAME }}
+        registry: kleeadrianacrdemo.azurecr.io
         username: ${{secrets.AZURE_REGISTRY_USER}}
         password: ${{secrets.AZURE_REGISTRY_PASS}}
 
@@ -73,7 +73,7 @@ jobs:
 
     - name: Create deployment slot
       run: |
-        az webapp deployment slot create --name popular-repos --resource-group pied-piper-inc --slot review-pr-${{ github.event.number }} --configuration-source popular-repos
+        az webapp deployment slot create --name popular-repos --resource-group ACR-demo --slot review-pr-${{ github.event.number }} --configuration-source popular-repos
 
     - name: Deploy popular repos
       uses: azure/webapps-deploy@v2
