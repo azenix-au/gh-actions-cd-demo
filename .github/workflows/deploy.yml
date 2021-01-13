@@ -53,8 +53,8 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos:${{ github.event.pull_request.head.sha || github.sha }}
-        cache-from: type=registry,ref=${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos:latest
+        tags: kleeadrianacrdemo.azurecr.io/popular-repos:${{ github.event.pull_request.head.sha || github.sha }}
+        cache-from: type=registry,ref=kleeadrianacrdemo.azurecr.io/popular-repos:latest
         cache-to: type=inline
 
   deploy_to_review:
