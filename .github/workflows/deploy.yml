@@ -73,7 +73,7 @@ jobs:
 
     - name: Create deployment slot
       run: |
-        az webapp deployment slot create --name popular-repos --resource-group ACR-demo --slot review-pr-${{ github.event.number }} --configuration-source popular-repos
+        az webapp deployment slot create --name ghpopular-repos --resource-group ACR-demo --slot review-pr-${{ github.event.number }} --configuration-source ghpopular-repos
 
     - name: Deploy popular repos
       uses: azure/webapps-deploy@v2
@@ -121,5 +121,5 @@ jobs:
 
     - name: Swap staging to production
       run: |
-        az webapp deployment slot swap --name popular-repos --resource-group ACR-demo --slot staging --target-slot production
+        az webapp deployment slot swap --name ghpopular-repos --resource-group ACR-demo --slot staging --target-slot production
 
