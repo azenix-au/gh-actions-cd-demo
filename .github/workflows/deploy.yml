@@ -121,5 +121,5 @@ jobs:
 
     - name: Swap staging to production
       run: |
-        az webapp deployment slot swap --name popular-repos --resource-group pied-piper-inc --slot staging --target-slot production
+        az webapp deployment slot swap --name popular-repos --resource-group ACR-demo --slot staging --target-slot production
 
