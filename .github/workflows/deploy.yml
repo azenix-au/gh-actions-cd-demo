@@ -79,7 +79,7 @@ jobs:
       uses: azure/webapps-deploy@v2
       id: popular-repos-web
       with:
-        app-name: 'popular-repos'
+        app-name: 'ghpopular-repos'
         images: '${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos:${{ github.event.pull_request.head.sha }}'
         slot-name: review-pr-${{ github.event.number }}
 
@@ -111,7 +111,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: 
       name: production
-      url: https://popular-repos.azurewebsites.net
+      url: https://ghpopular-repos.azurewebsites.net
     needs: deploy_to_staging
     steps:
     - name: Azure login
