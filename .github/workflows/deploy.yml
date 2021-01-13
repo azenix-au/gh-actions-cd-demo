@@ -101,7 +101,7 @@ jobs:
       uses: azure/webapps-deploy@v2
       id: popular-repos-web
       with:
-        app-name: 'popular-repos'
+        app-name: 'ghpopular-repos'
         images: '${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos:${{ github.sha }}'
         slot-name: staging
 
