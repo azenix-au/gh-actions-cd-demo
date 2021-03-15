@@ -58,11 +58,11 @@ jobs:
         cache-to: type=inline
 
   deploy_to_OnDemandDev:
-    name: Deploy Review
+    name: OnDemandDev
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     environment: 
-      name: review-lab
+      name: On-Demand-Dev
       url: ${{ steps.popular-repos-web.outputs.webapp-url }}
     needs: build
     steps:
