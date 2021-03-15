@@ -57,7 +57,7 @@ jobs:
         cache-from: type=registry,ref=kleeadrianacrdemo.azurecr.io/popular-repos:latest
         cache-to: type=inline
 
-  deploy_to_review:
+  deploy_to_OnDemandDev:
     name: Deploy Review
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
