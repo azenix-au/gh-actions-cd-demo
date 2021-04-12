@@ -48,6 +48,6 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: 377117578606.dkr.ecr.ap-southeast-2.amazonaws.com/popular-repos:${{ github.event.pull_request.head.sha || github.sha }}
+        tags: 377117578606.dkr.ecr.ap-southeast-2.amazonaws.com/popular-repos:${{github.sha }}
         cache-from: type=registry,ref=377117578606.dkr.ecr.ap-southeast-2.amazonaws.com/popular-repos:latest
         cache-to: type=inline
