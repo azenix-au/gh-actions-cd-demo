@@ -5,9 +5,11 @@ on:
     branches:
     - main
   pull_request:
+    - main
+  workflow_dispatch:  
 
 jobs:
-  terraform:
+  terraform_plan:
     name: terraform_plan
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
@@ -54,12 +56,11 @@ jobs:
         tf_actions_version: 0.14.8
         tf_actions_subcommand: 'plan'
         tf_actions_working_dir: "./terraform"
-Terraform_Apply:
+  Terraform_Apply:
     name: Terraform Apply
     runs-on: ubuntu-latest
-    environment: 
-    name: Apply-Dev
-    needs: build_plan
+    environment: apply
+    needs: terraform_plan
     steps:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main'
