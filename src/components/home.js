@@ -41,7 +41,7 @@ function RepoGrid(props) {
                 />
               </li>
               <li>
-                <a href={repo.html_url} target="_blank" rel="noopener noreferrer">Example>
+                <a href={repo.html_url} Example>
                   {repo.name}
                 </a>
               </li>
