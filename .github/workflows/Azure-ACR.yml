@@ -51,8 +51,8 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: phallgithub.azurecr.io/popular-repos:${{ github.event.pull_request.head.sha || github.sha }}
-        cache-from: type=registry,ref=phallgithub.azurecr.io/popular-repos:latest
+        tags: ${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos:${{ github.event.pull_request.head.sha || github.sha }}
+        cache-from: type=registry,ref=${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos:latest
         cache-to: type=inline
 
   deploy_to_Dev:
@@ -66,7 +66,7 @@ jobs:
     - name: Azure login
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_SUBSCRIPTION_SECRET }}
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Create deployment slot
       run: |
@@ -91,7 +91,7 @@ jobs:
     - name: Azure login
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_SUBSCRIPTION_SECRET }}
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Create deployment slot
       run: |
