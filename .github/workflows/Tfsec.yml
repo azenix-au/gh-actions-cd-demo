@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: tfsec
-        uses: tfsec/tfsec-sarif-action@v0.0.3
+        uses: tfsec/tfsec-sarif-action@v0.0.6
         with:
           sarif_file: tfsec.sarif         
           github_token: ${{secrets.GITHUB_TOKEN}}
