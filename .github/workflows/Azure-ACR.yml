@@ -4,12 +4,16 @@ on:
   pull_request:
     branches:
       - main
-      
+
+env:
+  RESOURCE_GROUP: phall-github-actions
+  WEBAPP_NAME: phall-ghpopular-repos
+
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    #environment: azenix-bulk-sub
+    
     steps:
     - uses: actions/checkout@v2
     - name: Setup node 12
@@ -70,13 +74,13 @@ jobs:
 
     - name: Create deployment slot
       run: |
-        az webapp deployment slot create --name ghpopular-repos --resource-group ACR-demo --slot review-pr-${{ github.event.number }} --configuration-source ghpopular-repos
+        az webapp deployment slot create --name ${{env.WEBAPP_NAME}} -repos --resource-group ${{env.RESOURCE_GROUP}} --slot review-pr-${{ github.event.number }} --configuration-source ${{env.WEBAPP_NAME}}
 
     - name: Deploy popular repos
       uses: azure/webapps-deploy@v2
       id: popular-repos-web
       with:
-        app-name: 'ghpopular-repos'
+        app-name: ${{env.WEBAPP_NAME}}
         images: '${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos:${{ github.event.pull_request.head.sha }}'
         slot-name: review-pr-${{ github.event.number }}
 
@@ -95,13 +99,13 @@ jobs:
 
     - name: Create deployment slot
       run: |
-        az webapp deployment slot create --name ghpopular-repos --resource-group ACR-demo --slot staging --configuration-source ghpopular-repos
+        az webapp deployment slot create --name ${{env.WEBAPP_NAME}} --resource-group ${env.RESOURCE_GROUP} --slot staging --configuration-source ${{env.WEBAPP_NAME}}
 
     - name: Deploy popular repos
       uses: azure/webapps-deploy@v2
       id: popular-repos-web
       with:
-        app-name: 'ghpopular-repos'
+        app-name: ${{env.WEBAPP_NAME}}
         images: '${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos:${{ github.sha }}'
         slot-name: staging
 
