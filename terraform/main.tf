@@ -24,8 +24,7 @@ data "azurerm_client_config" "current" {}
 
 resource "azurerm_app_service_plan" "example" {
   name                = "app-service-example-s1"
-  location            = azurerm_resource_group.rsg_app.location
-  resource_group_name = azurerm_resource_group.rsg_app.name
+  location            = "Australia East"
   kind                = "Linux"
   reserved            = true
 
