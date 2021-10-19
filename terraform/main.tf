@@ -1,7 +1,7 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "tfstatefile"
-    storage_account_name = "tfstatefileacc"
+    resource_group_name  = "phall-github-actions"
+    storage_account_name = "phalltfstatefile"
     container_name       = "tfstate"
     key                  = "example.tfstate"
   }
