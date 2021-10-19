@@ -39,7 +39,7 @@ jobs:
 
     - name: Terraform Format
       working-directory: ./terraform
-      run: terraforn fmt
+      run: terraform fmt
 
     - name: Terraform Init
       working-directory: ./terraform
