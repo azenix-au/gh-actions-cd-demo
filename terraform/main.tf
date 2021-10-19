@@ -23,10 +23,10 @@ data "azurerm_client_config" "current" {}
 # }
 
 resource "azurerm_app_service_plan" "example" {
-  name                = "app-service-example-s1"
-  location            = "Australia East"
-  kind                = "Linux"
-  reserved            = true
+  name     = "app-service-example-s1"
+  location = "Australia East"
+  kind     = "Linux"
+  reserved = true
 
   sku {
     tier = "Free"
