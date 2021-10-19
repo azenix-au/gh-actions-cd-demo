@@ -75,8 +75,8 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        cache-from: type=registry,ref=${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos:latest
-        cache-to: type=inline
+        # cache-from: type=registry,ref=${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos:latest
+        # cache-to: type=inline
 
   deploy_to_Dev:
     name: Dev
