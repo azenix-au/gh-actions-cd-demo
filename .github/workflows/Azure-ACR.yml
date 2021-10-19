@@ -4,11 +4,16 @@ on:
   pull_request:
     branches:
       - main
-      
+
+env:
+  RESOURCE_GROUP: phall-github-actions
+  WEBAPP_NAME: phall-ghpopular-repos
+
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    
     steps:
     - uses: actions/checkout@v2
     - name: Setup node 12
@@ -40,7 +45,7 @@ jobs:
     - name: Login to Container Registry
       uses: docker/login-action@v1 
       with:
-        registry: kleeadrianacrdemo.azurecr.io
+        registry: ${{secrets.AZURE_REGISTRY_NAME}}
         username: ${{secrets.AZURE_REGISTRY_USER}}
         password: ${{secrets.AZURE_REGISTRY_PASS}}
 
@@ -50,8 +55,8 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: kleeadrianacrdemo.azurecr.io/popular-repos:${{ github.event.pull_request.head.sha || github.sha }}
-        cache-from: type=registry,ref=kleeadrianacrdemo.azurecr.io/popular-repos:latest
+        tags: ${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos:${{ github.event.pull_request.head.sha || github.sha }}
+        cache-from: type=registry,ref=${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos:latest
         cache-to: type=inline
 
   deploy_to_Dev:
@@ -65,17 +70,17 @@ jobs:
     - name: Azure login
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_SUBSCRIPTION_SECRET }}
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Create deployment slot
       run: |
-        az webapp deployment slot create --name ghpopular-repos --resource-group ACR-demo --slot review-pr-${{ github.event.number }} --configuration-source ghpopular-repos
+        az webapp deployment slot create --name ${{env.WEBAPP_NAME}} --resource-group ${{env.RESOURCE_GROUP}} --slot review-pr-${{ github.event.number }} --configuration-source ${{env.WEBAPP_NAME}}
 
     - name: Deploy popular repos
       uses: azure/webapps-deploy@v2
       id: popular-repos-web
       with:
-        app-name: 'ghpopular-repos'
+        app-name: ${{env.WEBAPP_NAME}}
         images: '${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos:${{ github.event.pull_request.head.sha }}'
         slot-name: review-pr-${{ github.event.number }}
 
@@ -83,24 +88,24 @@ jobs:
     name: Deploy Staging
     runs-on: ubuntu-latest
     environment: 
-      name: staging
+      name: Staging
       url: ${{ steps.popular-repos-web.outputs.webapp-url }}
     needs: deploy_to_Dev
     steps:
     - name: Azure login
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_SUBSCRIPTION_SECRET }}
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Create deployment slot
       run: |
-        az webapp deployment slot create --name ghpopular-repos --resource-group ACR-demo --slot staging --configuration-source ghpopular-repos
+        az webapp deployment slot create --name ${{env.WEBAPP_NAME}} --resource-group ${{env.RESOURCE_GROUP}} --slot staging --configuration-source ${{env.WEBAPP_NAME}}
 
     - name: Deploy popular repos
       uses: azure/webapps-deploy@v2
       id: popular-repos-web
       with:
-        app-name: 'ghpopular-repos'
+        app-name: ${{env.WEBAPP_NAME}}
         images: '${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos:${{ github.sha }}'
         slot-name: staging
 

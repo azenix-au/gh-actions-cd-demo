@@ -18,7 +18,7 @@ jobs:
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
     runs-on: ubuntu-latest
-    environment: dev-plan
+    environment: dev-infrastructure
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -60,7 +60,7 @@ jobs:
   Terraform_Apply:
     name: Terraform Apply
     runs-on: ubuntu-latest
-    environment: dev-apply
+    environment: dev-infrastructure-apply
     needs: terraform_plan
     steps:
     - name: Terraform Apply
