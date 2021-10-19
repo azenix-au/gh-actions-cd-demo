@@ -88,7 +88,7 @@ jobs:
     name: Deploy Staging
     runs-on: ubuntu-latest
     environment: 
-      name: staging
+      name: Staging
       url: ${{ steps.popular-repos-web.outputs.webapp-url }}
     needs: deploy_to_Dev
     steps:
