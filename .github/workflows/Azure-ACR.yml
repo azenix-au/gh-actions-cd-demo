@@ -106,6 +106,6 @@ jobs:
       id: popular-repos-web
       with:
         app-name: ${{env.WEBAPP_NAME}}
-        images: '${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos:${{ github.sha }}'
+        images: '${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos:${{ github.event.pull_request.head.sha }}'
         slot-name: staging
 
