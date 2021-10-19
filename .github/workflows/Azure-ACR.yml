@@ -74,7 +74,7 @@ jobs:
 
     - name: Create deployment slot
       run: |
-        az webapp deployment slot create --name ${{env.WEBAPP_NAME}} -repos --resource-group ${{env.RESOURCE_GROUP}} --slot review-pr-${{ github.event.number }} --configuration-source ${{env.WEBAPP_NAME}}
+        az webapp deployment slot create --name ${{env.WEBAPP_NAME}} --resource-group ${{env.RESOURCE_GROUP}} --slot review-pr-${{ github.event.number }} --configuration-source ${{env.WEBAPP_NAME}}
 
     - name: Deploy popular repos
       uses: azure/webapps-deploy@v2
