@@ -16,20 +16,20 @@ provider "azurerm" {
 
 data "azurerm_client_config" "current" {}
 
-resource "azurerm_resource_group" "rsg_app" {
-  name     = "app-service-example"
-  location = "Australia East"
-}
+# Using a SP limited to a RG so can't create a new RG.
+# resource "azurerm_resource_group" "rsg_app" {
+#   name     = "app-service-example"
+#   location = "Australia East"
+# }
 
 resource "azurerm_app_service_plan" "example" {
-  name                = "app-service-example-s1"
-  location            = azurerm_resource_group.rsg_app.location
-  resource_group_name = azurerm_resource_group.rsg_app.name
-  kind                = "Linux"
-  reserved            = true
+  name     = "app-service-example-s1"
+  location = "Australia East"
+  kind     = "Linux"
+  reserved = true
 
   sku {
-    tier = "Standard"
-    size = "S1"
+    tier = "Free"
+    size = "F1"
   }
 }
