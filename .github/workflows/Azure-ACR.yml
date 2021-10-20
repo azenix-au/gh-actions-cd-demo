@@ -73,7 +73,7 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
+        # labels: ${{ steps.meta.outputs.labels }}
         # cache-from: type=registry,ref=${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos:latest
         # cache-to: type=inline
 
