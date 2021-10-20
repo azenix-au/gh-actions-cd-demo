@@ -64,6 +64,7 @@ jobs:
           ${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos
           ghcr.io/${{github.repository_owner}}/popular-repos
         tags: |
+            type=sha,format=long,event=pull_request,prefix=
             type=sha,format=long,event=branch,prefix=
 
     - name: Build and push
