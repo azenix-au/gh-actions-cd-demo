@@ -62,7 +62,7 @@ jobs:
       with:
         images: |
           ${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos
-          ghcr.io/${{github.repository}}
+          ghcr.io/${{github.repository_owner}}/popular-repos
         tags: |
             type=sha,event=branch,prefix=
 
@@ -73,7 +73,6 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: ${{ steps.meta.outputs.tags }}
-        # tags: ghcr.io/popular-repos:${{ github.event.pull_request.head.sha || github.sha }}
         labels: ${{ steps.meta.outputs.labels }}
         cache-from: type=registry,ref=${{ secrets.AZURE_REGISTRY_NAME }}/popular-repos:latest
         cache-to: type=inline
